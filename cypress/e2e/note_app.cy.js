@@ -10,7 +10,7 @@ describe("Note app", function () {
     cy.visit("");
   });
 
-  it("front page can be opened", () => {
+  it.only("front page can be opened", () => {
     cy.contains("Notes");
     cy.contains(
       "Note app, Departement of Computer Science, University of Helsinki 2023"
@@ -58,7 +58,7 @@ describe("Note app", function () {
         cy.createNote({ content: "third note", important: false });
       });
 
-      it.only("one of those can be made important", function () {
+      it("one of those can be made important", function () {
         // cy.contains("second note")
         //   .parent()
         //   .find("button")
@@ -109,10 +109,19 @@ describe("Note app", function () {
 
       it("it can be made not important", function () {
         cy.contains("another note cypress")
+          .parent()
+          .find("button")
           .contains("make not important")
-          .click();
+          .as("theNotImportantButton");
+        cy.get("@theNotImportantButton").click();
 
-        cy.contains("another note cypress").contains("make important");
+        cy.contains("another note cypress")
+          .parent()
+          .find("button")
+          .contains("make important")
+          .as("theImportantButton");
+
+        cy.get("@theImportantButton").should("contain", "make important");
       });
     });
   });
