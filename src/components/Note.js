@@ -5,7 +5,7 @@ const Note = ({ note, toggleImportance, handleDelete }) => {
   const deleteLabel = "Delete";
   return (
     <li className="note">
-      Your awesome note: {note.content}{" "}
+      <span>Your awesome note: {note.content} </span>
       <button onClick={toggleImportance}>{label}</button>{" "}
       <button onClick={handleDelete}>{deleteLabel}</button>
     </li>
